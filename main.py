@@ -16,6 +16,10 @@ def main():
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(LINE)
+    with open(path, "rb") as f:
+        written = f.read()
+    if written != LINE.encode("utf-8"):
+        raise SystemExit("entry.txt read-back mismatch: wrote %d bytes, expected %d" % (len(written), len(LINE.encode("utf-8"))))
 
 if __name__ == "__main__":
     main()
